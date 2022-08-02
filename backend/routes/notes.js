@@ -18,8 +18,8 @@ route.get('/fetchnotes', fetchuser, async (req, res) => {
 
 // Route 2: Add user notes
 route.post('/addnotes', fetchuser, [
-   body('title').isLength({ min: 5 }),
-   body('description').isLength({ min: 6 }),
+   body('title').isLength({min:2}),
+   body('description').isLength({min:2}),
 ], async (req, res) => {
    try {
       const errors = validationResult(req);
@@ -31,9 +31,9 @@ route.post('/addnotes', fetchuser, [
          title,description,tag,user:req.users.id
       })
       const savedNote=await note.save();
-      res.send(savedNote)
+     res.send(savedNote)
    } catch (error) {
-      res.send(err)
+     res.send(err)
    }
 })
 
@@ -47,17 +47,17 @@ route.patch('/update/:id',fetchuser,async(req,res)=>{
    if(tag){newNote.tag=tag}
    let note=await Note.findById(req.params.id)
    if(!note){
-      res.status(401).send('Error')
+     return res.status(401).send('Error')
    }
 
    if(note.user.toString()!==req.users.id){
-      res.status(401).send('Error')
+     return res.status(401).send('Error')
    }
     note=await Note.findByIdAndUpdate(req.params.id,{$set:newNote},{new:true})
     res.send(note)
 }
 catch(err){
-   res.send(err)
+  res.send(err)
 }
 })
 
@@ -68,13 +68,13 @@ route.delete('/delete/:id',fetchuser,async(req,res)=>{
 try {
    let note=await Note.findById(req.params.id)
    if(!note){
-      res.status(401).send('Error')
+      return res.status(401).send('Error')
    }
    if(note.user.toString()!==req.users.id){
-      res.status(401).send('Error')
+       return res.status(401).send('Error')
    }
    let deleteNote=await Note.findByIdAndDelete(req.params.id)
-   res.send(deleteNote)
+    res.send(deleteNote)
 } catch (error) {
   res.send(error) 
 }

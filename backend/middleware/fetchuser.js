@@ -1,7 +1,7 @@
 let jwt=require('jsonwebtoken')
 const seqKey="welcome@key"
-let fetchuser= (req,res,next)=>{
-  const token=req.header('auth-token')
+let fetchuser=async (req,res,next)=>{
+  const token=await req.header('auth-token')
   if(!token){
     res.status(401).send('Login fiirst')
   }
