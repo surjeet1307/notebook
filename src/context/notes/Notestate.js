@@ -15,7 +15,7 @@ let Notestate=(props)=>{
                 method:'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'auth-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VycyI6eyJpZCI6IjYyZGI5NGQ1ZGFkM2NiNDNmNmRiMDZjNCJ9LCJpYXQiOjE2NTg1NTc2NzF9.sm4FB_lt3aPTkoo3BnUEL_UhhkIkStLJQay-0qEI9Fg'
+                    'auth-token':localStorage.getItem('token')
                   },
 
             })
@@ -31,7 +31,7 @@ let Notestate=(props)=>{
             
             headers: {
               'Content-Type': 'application/json',
-              'auth-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VycyI6eyJpZCI6IjYyZGI5NGQ1ZGFkM2NiNDNmNmRiMDZjNCJ9LCJpYXQiOjE2NTg1NTc2NzF9.sm4FB_lt3aPTkoo3BnUEL_UhhkIkStLJQay-0qEI9Fg'
+              'auth-token':localStorage.getItem('token')
             },
             body: JSON.stringify({title,description,tag}) 
           });
@@ -39,17 +39,7 @@ let Notestate=(props)=>{
           
          if(!res.errors){
 
-             let note={
-               "_id": "62e3699e8b14dcfd6b2e46d9",
-                   "user": "62db94d5dad3cb43f6db06c4",
-                   "title": title,
-                   "description": description,
-                   "tag": tag,
-                   "date": "2022-07-29T05:01:18.743Z",
-                   "__v": 0
-             }
-             
-             setState(state.concat(note))
+             setState(state.concat(res))
          }else {
            alert("Invalid value")
          }
@@ -60,7 +50,7 @@ let Notestate=(props)=>{
             method:'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VycyI6eyJpZCI6IjYyZGI5NGQ1ZGFkM2NiNDNmNmRiMDZjNCJ9LCJpYXQiOjE2NTg1NTc2NzF9.sm4FB_lt3aPTkoo3BnUEL_UhhkIkStLJQay-0qEI9Fg'
+                'auth-token':localStorage.getItem('token')
               },
 
         })
@@ -79,7 +69,7 @@ let Notestate=(props)=>{
               
               headers: {
                 'Content-Type': 'application/json',
-                'auth-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VycyI6eyJpZCI6IjYyZGI5NGQ1ZGFkM2NiNDNmNmRiMDZjNCJ9LCJpYXQiOjE2NTg1NTc2NzF9.sm4FB_lt3aPTkoo3BnUEL_UhhkIkStLJQay-0qEI9Fg'
+                'auth-token':localStorage.getItem('token')
               },
               body: JSON.stringify({title,description,tag}) 
             });

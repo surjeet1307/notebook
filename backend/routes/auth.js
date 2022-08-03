@@ -15,6 +15,7 @@ route.post('/createUser', [
   body('password').isLength({ min: 5 })
 ], async (req, res) => {
   // check validation
+  let suc=false;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -33,7 +34,7 @@ route.post('/createUser', [
     const salt =await bcrypt.genSaltSync(10);
     const secPass=await bcrypt.hash(req.body.password,salt)
 
-    await User.create({
+    let users= await User.create({
       name: req.body.name,
       email: req.body.email,
       password: secPass,
@@ -41,12 +42,12 @@ route.post('/createUser', [
 
      let data={
       users:{
-        id:user.id,
+        id:users.id,
       }
     }
     let token=jwt.sign(data,seqKey)
-
-    res.json(token)
+     suc=true
+    res.json({suc,token})
   }
   catch (err) {
     //show error
@@ -54,7 +55,7 @@ route.post('/createUser', [
     res.status(500).send("Error! Try Again")
   }
 })
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7fSwiaWF0IjoxNjU4NTU1MjA2fQ.j3yrxOuXzTgkOEG8l-PDtxI4yVplxB0Lf6ESGFeQaLc
+
 
 route.post('/login', [
   //Route:2 Login route
@@ -63,6 +64,7 @@ route.post('/login', [
   body('password').isLength({ min: 5 })
 ], async (req, res) => {
 // check validation
+let suc=false
 const errors = validationResult(req);
 if (!errors.isEmpty()) {
   return res.status(400).json({ errors: errors.array() });
@@ -85,8 +87,8 @@ try {
   }
   
   let token=jwt.sign(data,seqKey)
-
-  res.json(token)
+  suc=true
+  res.json({suc,token})
    
 } catch (error) {
   console.error(error.message);
@@ -102,7 +104,6 @@ route.post('/getuser',fetchuser,async (req,res)=>{
   try {
    userId=req.users.id;
     const data=await User.findById(userId).select('-password');
-    console.log(req.id);
     res.send(data)
   } catch (error) {
     

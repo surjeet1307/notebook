@@ -1,11 +1,17 @@
 import React,{useContext, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom'
 import Notecontext from '../context/notes/Notecontext'
 import Noteitem from './Noteitem'
 function Notes() {
-  
+  let history=useNavigate()
     let {state,getNotes} = useContext(Notecontext)
    useEffect(()=>{
     getNotes()
+    if(localStorage.getItem('token')){
+      history('/')
+    }else{
+      history('/login')
+    }
     
    },[])
   return (

@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 function Update() {
     let context=useContext(Notecontext)
-    let {enote,updatenotes,seteNote,getNotes}=context
+    let {enote,updatenotes,seteNote}=context
 
     let handlerUpdate=()=>{
          updatenotes(enote._id,enote.title,enote.description,enote.tag)

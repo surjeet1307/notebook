@@ -11,6 +11,8 @@ import Notestate from '../src/context/notes/Notestate'
 import Home from './components/Home'
 import About from './components/About'
 import Update from './components/Update'
+import Login from './components/Login';
+import Signup from './components/Signup';
 function App() {
   return (
     <>
@@ -29,6 +31,8 @@ function App() {
          <Route exact path="/update" element={<Update/>}>
 
          </Route>
+         <Route exact path='/login' element={<Login/>}></Route>
+         <Route exact path='/signup' element={<Signup/>}></Route>
         </Routes>
       </Router>
       </Notestate>

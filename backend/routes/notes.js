@@ -7,7 +7,7 @@ const { findById } = require('../models/User');
 //Route 1: fetchuser from user
 route.get('/fetchnotes', fetchuser, async (req, res) => {
    try {
-      let notes = await Note.find({ req: req.users.id })
+      let notes = await Note.find({ user: req.users.id })
       res.json(notes)
 
    } catch (error) {
